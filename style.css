@@ -15,8 +15,13 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: rgba(44, 131, 80, 0.5); */
   border: 1px solid fuchsia;
+}
+
+section {
+  font-size: 10vw;
+  color: greenyellow;
+  text-transform: uppercase;
 }
 
 .top {
@@ -32,11 +37,10 @@ footer {
   transition: background-color 0.2s;
   margin-top: 150px;
   margin-bottom: 160px;
-  /* padding: 200px 0; */
 }
 
 .black {
-  background-color: black; /* TODO: BLACK */
+  background-color: black;
   transition: background-color 0.2s;
 }
 
@@ -44,10 +48,7 @@ footer {
   height: 100vh;
   width: 500px;
   position: absolute;
-  /* background-color: rgba(19, 136, 238, 0.5); */
-  /* background-color: blue; */
   border-radius: 8px;
-  /* border: 1px solid black; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,7 +62,6 @@ footer {
 }
 
 .photo-2 {
-  /* top: 100vh; */
   background: url(https://k72.ca/uploads/teamMembers/IsaB-640x960.jpg) no-repeat;
 }
 
@@ -73,52 +73,24 @@ footer {
   position: relative;
 }
 
-.lines-1 {
-  position: absolute;
-  height: 200px;
-  width: 100%;
-  top: 50vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /* align-items: center; */
-  /* position: relative; */
-}
-
 .description-1 {
-  /* position: absolute; */
-  font-size: 60px;
-  color: purple;
+  position: absolute;
+  width: 100vw;
 }
 
 /* Второе фото */
 
-.lines {
-  height: 200px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /* align-items: center; */
-  /* position: relative; */
-}
-
-.description {
-  /* position: absolute; */
-  font-size: 50px;
-  color: red;
+.description-2 {
+  position: absolute;
+  width: 100vw;
 }
 
 .front {
-  /* left: -100vw; */
-  /* top: 20vh; */
-  /* height: 20vh; */
-  /* z-index: 3; */
+  left: -100vw;
+  top: 20vh;
 }
 
 .back {
-  /* right: -100vw; */
-  /* top: 40vh; */
-  /* height: 20vh; */
-  /* z-index: 1; */
+  right: -100vw;
+  top: 40vh;
 }

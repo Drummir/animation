@@ -32,10 +32,25 @@ gsap.to(`body`, {
 
 const a = gsap.timeline();
 
-// gsap.to(`.front`, { x: `+200vw`, duration: 10, repeat: -1 });
-// gsap.to(`.back`, { x: `-100vw`, duration: 10, repeat: -1 });
+gsap.to(`.front`, {
+  x: `+200vw`,
+  duration: 5,
+  repeat: -1,
+  ease: `none`,
+});
+gsap.to(`.back`, {
+  x: `-200vw`,
+  duration: 5,
+  repeat: -1,
+  ease: `none`,
+});
 
-a.to(`.lines-1`, { y: `-60vh`, alpha: 0, duration: 1 });
+a.to(`.description-1`, {
+  y: `-20vh`,
+  alpha: 0,
+  duration: 1,
+  ease: `none`,
+});
 
 ScrollTrigger.create({
   trigger: `.photo-2`,
@@ -44,12 +59,12 @@ ScrollTrigger.create({
   start: `top bottom`,
   end: `top 60%`,
   scrub: true,
-  pin: `.lines-1`,
+  pin: `.description-1`,
   toggleActions: `restart none reverse none`,
-  markers: {
-    fontSize: `20px`,
-    indent: 100,
-  },
+  // markers: {
+  //   fontSize: `20px`,
+  //   indent: 100,
+  // },
 });
 
 // Костыль
