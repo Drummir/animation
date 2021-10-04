@@ -65,11 +65,19 @@ section {
   background: url(https://k72.ca/uploads/teamMembers/IsaB-640x960.jpg) no-repeat;
 }
 
-.photo-wrapper-2 {
-  top: 110vh;
-  position: relative;
+.photo-3 {
+  background-color: purple;
 }
-.photo-wrapper-1 {
+
+.photo-4 {
+  background-color: aquamarine;
+}
+
+.photo-5 {
+  background-color: yellow;
+}
+
+.photo-wrapper {
   position: relative;
 }
 
