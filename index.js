@@ -14,7 +14,7 @@ ScrollMagicPluginGsap(ScrollMagic, TweenMax);
 gsap.registerPlugin(ScrollTrigger);
 
 gsap.to(`body`, {
-  duration: 5,
+  duration: 1,
   scrollTrigger: {
     trigger: `.animation`,
     start: `top center`,
@@ -30,66 +30,82 @@ gsap.to(`body`, {
   },
 });
 
-const a = gsap.timeline();
-
-// gsap.to(`.front`, {
-//   x: `+200vw`,
-//   duration: 5,
-//   repeat: -1,
-//   ease: `none`,
-// });
-// gsap.to(`.back`, {
-//   x: `-200vw`,
-//   duration: 5,
-//   repeat: -1,
-//   ease: `none`,
-// });
-
-a.to(`.description-1`, {
-  y: `-20vh`,
-  alpha: 0,
-  duration: 1,
+gsap.to(`.front`, {
+  x: `+200vw`,
+  duration: 5,
+  repeat: -1,
+  ease: `none`,
+});
+gsap.to(`.back`, {
+  x: `-200vw`,
+  duration: 5,
+  repeat: -1,
   ease: `none`,
 });
 
-const lastIndex = gsap.utils.toArray('.photo-wrapper').length - 1;
 const tween = gsap.timeline();
 const controller = new ScrollMagic.Controller();
+const photoWrappers = gsap.utils.toArray('.photo-wrapper');
+const lastIndex = photoWrappers.length;
 
-document.querySelectorAll('.photo-wrapper').forEach((x, i) => {
+photoWrappers.forEach((el, i) => {
   if (i !== 0) {
-    x.style.top = `${110 * i}vh`;
+    el.style.top = `${110 * i}vh`;
   }
+  // console.log(el.querySelector(`.description`));
 });
 
-gsap.utils.toArray('.photo-wrapper').forEach((container, i) => {
+photoWrappers.forEach((container, i) => {
+  const descriptionsForCurrentContainer =
+    container.querySelectorAll(`.description`);
+
+  const a = gsap.timeline();
+
+  a.to(descriptionsForCurrentContainer, {
+    y: `-20vh`,
+    alpha: 0,
+    duration: 0.5,
+    ease: `none`,
+  });
+
+  // console.log(`description ${i + 1}, photo ${i + 2}`);
   if (i < lastIndex) {
-    console.log(`description ${i + 1}, photo ${i + 2}`);
     ScrollTrigger.create({
-      trigger: `.photo-${i + 2}`,
+      trigger: `.photo-${i + 1}`,
       scroller: `body`,
       animation: a,
       start: `top bottom`,
       end: `top 60%`,
-      scrub: true,
-      pin: `.description-${i + 1}`,
+      // scrub: true,
+      pin: descriptionsForCurrentContainer,
       toggleActions: `restart none reverse none`,
       // markers: {
       //   fontSize: `20px`,
-      //   indent: 100,
+      //   indent: 100 * i,
       // },
     });
   }
-  if (i !== 0) {
-    // Костыль
-    console.log(`container ${i} of ${lastIndex}`);
-    tween.add(gsap.to(container, { top: 0, duration: 1 }));
+  // if (i !== 0) {
+  // Костыль
+  // console.log(`container ${i} of ${lastIndex}`);
+  // needs next containe
+  // End Костыль
+  // }
+  if (i < lastIndex - 1) {
+    // console.log(i + 1, photoWrappers);
+    // const nextContainer = photoWrappers[i + 1];
+    // const nextDescriptions = nextContainer.querySelectorAll(`.description`);
 
-    // End Костыль
+    // nextDescriptions.forEach((el) => {
+    //   el.style.opacity = 0;
+    // });
+
+    tween.add(
+      gsap.to(photoWrappers[i + 1], { top: 0, duration: 1 })
+      // gsap.to(nextDescriptions, { opacity: 1, duration: 1 })
+    );
   }
 });
-
-console.log(tween);
 
 const scene = new ScrollMagic.Scene({
   triggerElement: `.animation`,

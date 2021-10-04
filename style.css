@@ -56,24 +56,24 @@ section {
   left: calc(50% - 250px);
 }
 
-.photo-1 {
+.photo-0 {
   background: url(https://k72.ca/uploads/teamMembers/Simon-640x960.jpg)
     no-repeat;
 }
 
-.photo-2 {
+.photo-1 {
   background: url(https://k72.ca/uploads/teamMembers/IsaB-640x960.jpg) no-repeat;
 }
 
-.photo-3 {
+.photo-2 {
   background-color: purple;
 }
 
-.photo-4 {
+.photo-3 {
   background-color: aquamarine;
 }
 
-.photo-5 {
+.photo-4 {
   background-color: yellow;
 }
 
@@ -81,14 +81,7 @@ section {
   position: relative;
 }
 
-.description-1 {
-  position: absolute;
-  width: 100vw;
-}
-
-/* Второе фото */
-
-.description-2 {
+.description {
   position: absolute;
   width: 100vw;
 }
