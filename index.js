@@ -18,6 +18,7 @@ const photoWrappers = gsap.utils.toArray('.photo-wrapper');
 const lastIndex = photoWrappers.length;
 
 const DURATION_IN_SECONDS = 2 * Math.floor(lastIndex / 2);
+const DURATION_FOR_DESCRIPTION = DURATION_IN_SECONDS / lastIndex;
 const tween = gsap.timeline({ duration: DURATION_IN_SECONDS });
 // gsap.to(`body`, {
 //   duration: DURATION_IN_SECONDS,
@@ -37,18 +38,18 @@ const tween = gsap.timeline({ duration: DURATION_IN_SECONDS });
 //   },
 // });
 
-// gsap.to(`.front`, {
-//   x: `+200vw`,
-//   duration: 5,
-//   repeat: -1,
-//   ease: `none`,
-// });
-// gsap.to(`.back`, {
-//   x: `-200vw`,
-//   duration: 5,
-//   repeat: -1,
-//   ease: `none`,
-// });
+gsap.to(`.front`, {
+  x: `+200vw`,
+  duration: 5,
+  repeat: -1,
+  ease: `none`,
+});
+gsap.to(`.back`, {
+  x: `-200vw`,
+  duration: 5,
+  repeat: -1,
+  ease: `none`,
+});
 
 photoWrappers.forEach((el, i) => {
   // Top offset
@@ -57,40 +58,75 @@ photoWrappers.forEach((el, i) => {
   }
 });
 
+// const a = gsap.timeline();
+
 photoWrappers.forEach((container, i) => {
-  const descriptionsForCurrentContainer =
-    container.querySelectorAll(`.description`);
+  const descriptions = container.querySelectorAll(`.description`);
 
-  // const a = gsap.timeline();
+  container.classList.add(`photo-wrapper-${i}`);
 
-  // a.to(descriptionsForCurrentContainer, {
-  //   y: `-20vh`,
-  //   alpha: 0,
-  //   duration: 0.5,
-  //   ease: `none`,
-  // });
-  // a.to(descriptionsForCurrentContainer, {
-  //   y: `+20vh`,
-  //   alpha: 0,
-  //   duration: 0.5,
-  //   ease: `none`,
-  // });
+  descriptions.forEach((el) => {
+    el.classList.add(`description-${i}`);
+  });
+});
 
-  if (i < lastIndex) {
-    ScrollTrigger.create({
-      trigger: `.photo-${i + 1}`,
-      scroller: `body`,
-      // animation: a,
-      start: `top bottom`,
-      end: `top 60%`,
-      // scrub: true,
-      pin: descriptionsForCurrentContainer,
-      toggleActions: `restart none reverse none`,
-      // markers: {
-      //   fontSize: `20px`,
-      //   indent: 100 * i,
-      // },
+photoWrappers.forEach((container, i) => {
+  if (i > 0) {
+    // const prevContainer = photoWrappers[i - 1];
+    // const prevDescription = prevContainer.querySelectorAll(`.description`);
+
+    // console.log(prevContainer);
+
+    // a.add(
+    const a = gsap.to(`.description-${i - 1}`, {
+      y: `-20vh`,
+      alpha: 0,
+      duration: DURATION_FOR_DESCRIPTION,
+      ease: `none`,
     });
+
+    console.log(a);
+    // );
+    // a.add(
+    //   gsap.to(prevDescription, {
+    //     y: `+20vh`,
+    //     alpha: 0,
+    //     duration: DURATION_FOR_DESCRIPTION,
+    //     ease: `none`,
+    //   })
+    // );
+
+    if (i !== 2) {
+      ScrollTrigger.create({
+        trigger: `.photo-${i}`,
+        // scroller: `body`,
+        animation: a,
+        start: `top bottom`,
+        end: `top 60%`,
+        // scrub: true,
+        pin: `.description-${i - 1}`,
+        toggleActions: `restart none reverse none`,
+        // markers: {
+        //   fontSize: `20px`,
+        //   indent: 100 * i,
+        // },
+      });
+    } else {
+      ScrollTrigger.create({
+        trigger: `.photo-${i}`,
+        // scroller: `body`,
+        animation: a,
+        start: `top bottom`,
+        end: `top 20%`,
+        // scrub: true,
+        pin: `.description-${i - 1}`,
+        toggleActions: `restart none reverse none`,
+        markers: {
+          fontSize: `20px`,
+          indent: 100,
+        },
+      });
+    }
   }
 });
 
@@ -99,9 +135,9 @@ photoWrappers.forEach((container, i) => {
     // For nextContainers
     const containerAnimation = gsap.to(container, {
       top: 0,
-      duration: 2,
+      duration: 1,
     });
-    tween.add(containerAnimation, `container--${i}`);
+    tween.add(containerAnimation);
   }
 });
 
@@ -112,12 +148,12 @@ ScrollTrigger.create({
   pin: `.animation`,
   toggleActions: `restart none reverse none`,
   //
-  markers: {
-    startColor: `blue`,
-    endColor: `red`,
-    fontSize: `18px`,
-    indent: 200,
-  },
+  // markers: {
+  //   startColor: `blue`,
+  //   endColor: `red`,
+  //   fontSize: `18px`,
+  //   indent: 200,
+  // },
 });
 
 // Main Scroller
@@ -128,12 +164,12 @@ ScrollTrigger.create({
   endTrigger: `photo-${lastIndex - 1}`,
   toggleActions: `restart none reverse none`,
 
-  markers: {
-    startColor: `green`,
-    endColor: `black`,
-    fontSize: `18px`,
-    indent: 500,
-  },
+  // markers: {
+  //   startColor: `green`,
+  //   endColor: `black`,
+  //   fontSize: `18px`,
+  //   indent: 500,
+  // },
   toggleClass: { targets: [`body`, `.animation`], className: `black` },
 });
 
