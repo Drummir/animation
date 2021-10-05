@@ -67,11 +67,18 @@ photoWrappers.forEach((container, i) => {
     duration: 0.5,
     ease: `none`,
   });
+  a.to(descriptionsForCurrentContainer, {
+    y: `+20vh`,
+    alpha: 0,
+    duration: 0.5,
+    ease: `none`,
+  });
 
   // console.log(`description ${i + 1}, photo ${i + 2}`);
-  if (i < lastIndex) {
+  console.log(i, lastIndex);
+  if (i < lastIndex - 1) {
     ScrollTrigger.create({
-      trigger: `.photo-${i + 1}`,
+      trigger: `.photo-${i === 5 ? i : i + 1}`,
       scroller: `body`,
       animation: a,
       start: `top bottom`,
@@ -95,13 +102,16 @@ photoWrappers.forEach((container, i) => {
     // console.log(i + 1, photoWrappers);
     // const nextContainer = photoWrappers[i + 1];
     // const nextDescriptions = nextContainer.querySelectorAll(`.description`);
-
     // nextDescriptions.forEach((el) => {
     //   el.style.opacity = 0;
     // });
+  }
+});
 
+photoWrappers.forEach((container, i) => {
+  if (i !== 0) {
     tween.add(
-      gsap.to(photoWrappers[i + 1], { top: 0, duration: 1 })
+      gsap.to(container, { top: 0, duration: 1 })
       // gsap.to(nextDescriptions, { opacity: 1, duration: 1 })
     );
   }
